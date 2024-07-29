@@ -6,6 +6,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import editico from "../public/assets/icons/edit.svg";
 import shareico from "../public/assets/icons/share.svg";
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 
 const Home = () => {
   return (
@@ -22,8 +23,12 @@ const Home = () => {
               <span>Share</span>
             </Button>
             <Avatar>
-              <AvatarImage src="https://github.com/shadcn.png" />
-              <AvatarFallback>CN</AvatarFallback>
+              <SignedOut>
+                <SignInButton />
+              </SignedOut>
+              <SignedIn>
+                <UserButton />
+              </SignedIn>
             </Avatar>
           </div>
         </div>
