@@ -1,7 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import Logo from "../public/assets/images/logo.png";
+import Logo from "../public/assets/icons/logo.svg";
+import LLogo from "../public/assets/icons/logo-icon.svg";
 import { AppProps } from "next/app";
 
 const Header = ({ children }: HeaderProps) => {
@@ -16,11 +17,11 @@ const Header = ({ children }: HeaderProps) => {
           className="hidden md:block"
         />
         <Image
-          src={Logo}
+          src={LLogo}
           alt="Logo"
           width={32}
           height={32}
-          className="mr-2 md:block"
+          className="mr-2 md:hidden"
         />
       </Link>
       {children}
