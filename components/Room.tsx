@@ -5,11 +5,12 @@ import React from "react";
 
 import Header from "@/components/Header";
 import Image from "next/image";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import editico from "../public/assets/icons/edit.svg";
 import shareico from "../public/assets/icons/share.svg";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
+import { Editor } from "./editor/Editor";
 
 const Room = () => {
   return (
@@ -38,6 +39,7 @@ const Room = () => {
               </div>
             </div>
           </Header>
+          <Editor />
         </div>
       </ClientSideSuspense>
     </RoomProvider>

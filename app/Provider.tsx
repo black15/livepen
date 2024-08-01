@@ -15,7 +15,7 @@ export function Provider({ children }: { children: ReactNode }) {
     //     "pk_dev_8wAuCE5bOfHVyq6hWXsjSsz3dgJ7mWHMBwS6cVDA5Vf2OSHnGszJ0FEDwOPkogNV"
     //   }
     // >
-    <LiveblocksProvider authEndpoint={"api/livablocks-auth"}>
+    <LiveblocksProvider authEndpoint={"/api/liveblocks-auth"}>
       <ClientSideSuspense fallback={<Loader />}>{children}</ClientSideSuspense>
     </LiveblocksProvider>
   );

@@ -5,10 +5,11 @@ import Logo from "../public/assets/icons/logo.svg";
 import LLogo from "../public/assets/icons/logo-icon.svg";
 import { AppProps } from "next/app";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
+import { cn } from "@/lib/utils";
 
-const Header = ({ children }: HeaderProps) => {
+const Header = ({ children, classname }: HeaderProps) => {
   return (
-    <div className="header">
+    <div className={cn("header", classname)}>
       <Link href={"/"}>
         <Image
           src={Logo}

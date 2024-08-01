@@ -15,6 +15,7 @@
     "@lexical/selection": "^0.16.1",
     "@lexical/utils": "^0.16.1",
     "@liveblocks/client": "^2.4.0",
+    "@liveblocks/node": "^2.4.0",
     "@liveblocks/react": "^2.4.0",
     "@liveblocks/react-lexical": "^2.4.0",
     "@liveblocks/react-ui": "^2.4.0",
@@ -24,11 +25,13 @@
     "clsx": "^2.1.1",
     "lexical": "^0.16.1",
     "lucide-react": "^0.417.0",
+    "nanoid": "^5.0.7",
     "next": "14.2.5",
     "react": "^18",
     "react-dom": "^18",
     "tailwind-merge": "^2.4.0",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "uuidv4": "^6.2.13"
   },
   "devDependencies": {
     "@types/node": "^20",
