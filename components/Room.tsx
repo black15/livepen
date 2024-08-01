@@ -11,11 +11,13 @@ import editico from "../public/assets/icons/edit.svg";
 import shareico from "../public/assets/icons/share.svg";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import { Editor } from "./editor/Editor";
+import ActiveUsers from "./ActiveUsers";
+import Loader from "./Loader";
 
-const Room = () => {
+const Room = ({ roomId, roomMeta }: { roomId: string; roomMeta: string }) => {
   return (
-    <RoomProvider id="my-room">
-      <ClientSideSuspense fallback={<div>Loading…</div>}>
+    <RoomProvider id={roomId}>
+      <ClientSideSuspense fallback={<Loader />}>
         <div className="collaborative-room">
           <Header>
             <div className="flex w-fit items-center justify-between gap-2">
@@ -28,6 +30,8 @@ const Room = () => {
                   <Image src={shareico} alt="Share" width={15} />
                   <span>Share</span>
                 </Button>
+
+                <ActiveUsers />
                 <Avatar>
                   <SignedOut>
                     <SignInButton />

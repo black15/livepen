@@ -6,6 +6,7 @@ import doc from "../../public/assets/icons/documentrepo.svg";
 import AddDocumentBtn from "@/components/AddDocumentBtn";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
+import ActiveUsers from "@/components/ActiveUsers";
 
 const Home = async () => {
   const documents = [];
