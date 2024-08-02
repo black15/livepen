@@ -7,6 +7,17 @@ declare type AccessType = ["room:write"] | ["room:read", "room:presence:write"];
 
 declare type RoomAccesses = Record<string, AccessType>;
 
+declare type RoomMetaTypes = {
+  creatorId: string;
+  email: string;
+  title: string;
+};
+
+interface UpdateRoomParams {
+  roomId: string;
+  newRoomName?: string;
+}
+
 declare type UserType = "creator" | "editor" | "viewer";
 
 declare type DocumentParams = {
