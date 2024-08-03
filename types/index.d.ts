@@ -30,6 +30,14 @@ declare type AddDocumentProps = {
   email: string;
 };
 
+declare type DocumentMetaData = {
+  id: string;
+  metadata: {
+    email: string;
+    title: string;
+  };
+};
+
 declare type RoomMetadata = {
   creatorId: string;
   email: string;

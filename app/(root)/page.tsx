@@ -6,10 +6,22 @@ import doc from "../../public/assets/icons/documentrepo.svg";
 import AddDocumentBtn from "@/components/AddDocumentBtn";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
-import ActiveUsers from "@/components/ActiveUsers";
+import { getDocuments } from "@/lib/actions/room.actions";
 
 const Home = async () => {
-  const documents = [];
+  // const documents = await getDocuments();
+  const documents = ["test", "test", "test"];
+  const documentNames: DocumentMetaData[] = [];
+
+  // documents.map((document: DocumentMetaData) => {
+  //   documentNames.push({
+  //     id: document.id,
+  //     metadata: {
+  //       title: document.metadata.title,
+  //       email: document.metadata.email,
+  //     },
+  //   });
+  // });
 
   const clerkUser = await currentUser();
   if (!clerkUser) redirect("/login");
@@ -29,7 +41,31 @@ const Home = async () => {
       </Header>
 
       {documents.length > 0 ? (
-        <div>hello</div>
+        <div className="w-full flex flex-col gap-6">
+          <div className="w-full max-w-[750px] mx-auto flex items-center justify-between">
+            <span className="text-2xl text-gray-800 font-semibold">
+              All Documents
+            </span>
+            <AddDocumentBtn
+              userId={clerkUser.id}
+              email={clerkUser.emailAddresses[0].emailAddress}
+            />
+          </div>
+          <div className="flex flex-col gap-4">
+            {documents.map((document) => (
+              <div
+                key={document}
+                className="w-full max-w-[750px] mx-auto bg-gray-50 flex flex-col gap-4 items-center justify-center rounded-md py-8"
+                style={{
+                  boxShadow:
+                    "rgba(0, 0, 0, 0.1) 0px 0px 2px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px",
+                }}
+              >
+                {document}
+              </div>
+            ))}
+          </div>
+        </div>
       ) : (
         <div
           className="w-full max-w-[750px] bg-gray-50 flex flex-col gap-4 items-center justify-center rounded-md py-8"

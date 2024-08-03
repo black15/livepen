@@ -14,7 +14,7 @@ import { Editor } from "./editor/Editor";
 import ActiveUsers from "./ActiveUsers";
 import Loader from "./Loader";
 import { Input } from "./ui/input";
-import { updateRoom } from "@/lib/actions/room.actions";
+import { updateDocument } from "@/lib/actions/room.actions";
 
 const Room = ({
   roomId,
@@ -32,6 +32,22 @@ const Room = ({
 
   const currentUserType = "editor";
 
+  const updateTitleHandler = async (
+    event: React.KeyboardEvent<HTMLInputElement>
+  ) => {
+    if (event.key == "Enter") {
+      setLoading(true);
+      try {
+        const updatedRoom = await updateDocument(roomId, title);
+        if (updatedRoom) {
+          setEditing(false);
+        }
+      } catch (error) {
+        console.log(error, "error updating document title");
+      }
+      setLoading(false);
+    }
+  };
   useEffect(() => {
     const handleOutsideClick = async (event: MouseEvent) => {
       if (
@@ -39,15 +55,16 @@ const Room = ({
         !containerRef.current.contains(event.target as Node)
       ) {
         setEditing(false);
-        await updateRoom(roomId, title);
+        await updateDocument(roomId, title);
       }
     };
+
     document.addEventListener("mousedown", handleOutsideClick);
 
     return () => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
-  }, [roomId, title]);
+  }, [roomId, title, loading]);
 
   return (
     <RoomProvider id={roomId}>
@@ -63,7 +80,7 @@ const Room = ({
                     ref={inputRef}
                     placeholder="Enter a title"
                     onChange={(e) => setTitle(e.target.value)}
-                    // onKeyDown={updateTitleHandler}
+                    onKeyDown={(e) => updateTitleHandler(e)}
                     className="document-title-input text-gray-100"
                   />
                 ) : (
@@ -73,6 +90,7 @@ const Room = ({
                     </span>
                   </>
                 )}
+                {loading && <p className="text-gray-100">saving ...</p>}
                 {currentUserType == "editor" && !editing && (
                   <Image
                     width={20}
@@ -84,7 +102,6 @@ const Room = ({
                 {currentUserType !== "editor" && !editing && (
                   <p className="view-only-tag">Read only</p>
                 )}
-                {loading && <p>saving ...</p>}
               </div>
               <div className="flex items-center justify-center gap-2">
                 <Button className="flex gap-2 bg-blue-600 hover:bg-blue-700">
