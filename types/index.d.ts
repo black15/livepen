@@ -31,6 +31,7 @@ declare type AddDocumentProps = {
 };
 
 declare type DocumentMetaData = {
+  createdAt: string;
   id: string;
   metadata: {
     email: string;

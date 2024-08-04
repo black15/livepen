@@ -7,23 +7,29 @@ import AddDocumentBtn from "@/components/AddDocumentBtn";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { getDocuments } from "@/lib/actions/room.actions";
+import DocIco from "../../public/assets/icons/document-repo.svg";
+import { dateConverter } from "@/lib/utils";
+import Link from "next/link";
 
 const Home = async () => {
-  // const documents = await getDocuments();
-  const documents = ["test", "test", "test"];
+  const clerkUser = await currentUser();
+  const documents = await getDocuments(
+    clerkUser?.emailAddresses[0].emailAddress
+  );
+  // const documents = ["test", "test", "test"];
   const documentNames: DocumentMetaData[] = [];
 
-  // documents.map((document: DocumentMetaData) => {
-  //   documentNames.push({
-  //     id: document.id,
-  //     metadata: {
-  //       title: document.metadata.title,
-  //       email: document.metadata.email,
-  //     },
-  //   });
-  // });
+  documents.map((document: DocumentMetaData) => {
+    documentNames.push({
+      id: document.id,
+      createdAt: document.createdAt,
+      metadata: {
+        title: document.metadata.title,
+        email: document.metadata.email,
+      },
+    });
+  });
 
-  const clerkUser = await currentUser();
   if (!clerkUser) redirect("/login");
 
   return (
@@ -44,7 +50,7 @@ const Home = async () => {
         <div className="w-full flex flex-col gap-6">
           <div className="w-full max-w-[750px] mx-auto flex items-center justify-between">
             <span className="text-2xl text-gray-800 font-semibold">
-              All Documents
+              All Documents {documentNames.length}
             </span>
             <AddDocumentBtn
               userId={clerkUser.id}
@@ -52,17 +58,36 @@ const Home = async () => {
             />
           </div>
           <div className="flex flex-col gap-4">
-            {documents.map((document) => (
-              <div
-                key={document}
-                className="w-full max-w-[750px] mx-auto bg-gray-50 flex flex-col gap-4 items-center justify-center rounded-md py-8"
+            {documentNames.map((document) => (
+              <Link
+                href={`documents/${document.id}`}
+                key={document.id}
+                className="w-full max-w-[750px] mx-auto bg-gray-50 flex flex-col gap-4 items-center justify-center rounded-md py-8 px-6 transition-all duration-300 ease-in-out hover:scale-105"
                 style={{
                   boxShadow:
                     "rgba(0, 0, 0, 0.1) 0px 0px 2px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px",
                 }}
               >
-                {document}
-              </div>
+                <div className="w-full flex items-center gap-6">
+                  <div
+                    className="bg-gray-50 p-3"
+                    style={{
+                      boxShadow:
+                        "rgba(0, 0, 0, 0.1) 0px 0px 2px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px",
+                    }}
+                  >
+                    <Image src={DocIco} alt="Document" width={40} height={40} />
+                  </div>
+                  <div className="flex flex-col gap-4">
+                    <span className="text-lg text-gray-800">
+                      {document.metadata.title}
+                    </span>
+                    <span className="text-sm text-gray-700">
+                      Created about {dateConverter(document.createdAt)}
+                    </span>
+                  </div>
+                </div>
+              </Link>
             ))}
           </div>
         </div>

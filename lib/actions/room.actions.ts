@@ -27,10 +27,13 @@ export const getDocument = async ({
   }
 };
 
-export const getDocuments = async () => {
-  const { data: rooms } = await liveblocks.getRooms();
-
-  return parseStringify(rooms);
+export const getDocuments = async (email: string | undefined) => {
+  const { data: rooms } = await liveblocks.getRooms({ userId: email });
+  try {
+    return parseStringify(rooms);
+  } catch (error) {
+    console.log(error, "error getting rooms");
+  }
 };
 
 export const createDocument = async ({ userId, email }: DocumentParams) => {
