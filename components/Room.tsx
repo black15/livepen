@@ -19,9 +19,13 @@ import { updateDocument } from "@/lib/actions/room.actions";
 const Room = ({
   roomId,
   roomMeta,
+  users,
+  currentUserType,
 }: {
   roomId: string;
   roomMeta: RoomMetaTypes;
+  users: User;
+  currentUserType: UserType;
 }) => {
   const [title, setTitle] = useState(roomMeta.title);
   const [editing, setEditing] = useState(false);
@@ -29,8 +33,6 @@ const Room = ({
 
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-
-  const currentUserType = "editor";
 
   const updateTitleHandler = async (
     event: React.KeyboardEvent<HTMLInputElement>
@@ -121,7 +123,7 @@ const Room = ({
               </div>
             </div>
           </Header>
-          <Editor />
+          <Editor roomId={roomId} currentUserType={currentUserType} />
         </div>
       </ClientSideSuspense>
     </RoomProvider>
