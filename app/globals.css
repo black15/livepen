@@ -213,8 +213,8 @@
 .lb-thread-comments,
 .lb-composer,
 .lb-comment-reaction {
-  background-color: #0f1c34;
-  color: #fff;
+  background-color: #f8f8f8;
+  color: #222;
 }
 
 .lb-button {
@@ -259,7 +259,7 @@
 .lb-dropdown-item,
 .lb-dropdown-item-icon,
 .lb-composer-editor {
-  color: #fff;
+  color: #111111;
 }
 
 .lb-composer-action {
@@ -267,7 +267,7 @@
 }
 
 .lb-comment-content {
-  background: #0b1527;
+  background: #f0f0f0;
   margin-top: 16px;
   padding: 12px;
   border-radius: 4px;
@@ -279,7 +279,7 @@
 .lb-composer-suggestions-list-item,
 .lb-inbox-notification-date,
 .lb-comment-author {
-  color: #b4c6ee;
+  color: #131313;
 }
 
 .data-liveblocks-portal {
